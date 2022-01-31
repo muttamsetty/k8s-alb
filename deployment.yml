@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: node
+ namespace: kube-system
+ labels:
+  app: node
+spec:
+ replicas: 2
+ selector:
+   matchLabels:
+     app: node
+ template:
+   metadata:
+     name: node
+     namespace: kube-system
+     labels:
+       app: node
+   spec:
+     containers:
+     - name: node
+       namespace: kube-system
+       image: 642512558314.dkr.ecr.us-east-1.amazonaws.com/node:latest
+       ports:
+       - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: node-svc 
+ namespace: kube-system
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3001
+  selector:
+   app: node
