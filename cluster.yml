@@ -1,0 +1,15 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: sample-eks
+  region: us-east-1
+
+nodeGroups:
+  - name: demo1
+    instanceType: t3.medium
+    desiredCapacity: 2
+    volumeSize: 30
+    ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/id_rsa.pub
